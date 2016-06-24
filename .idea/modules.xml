@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-Camera-2.0api.iml" filepath="$PROJECT_DIR$/Android-Camera-2.0api.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lixCamera.iml" filepath="$PROJECT_DIR$/lixCamera.iml" />
     </modules>
   </component>
 </project>
