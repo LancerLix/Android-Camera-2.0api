@@ -1,5 +1,9 @@
 [
     {
+        "merged": "E:\\GitHub\\Android-Camera-2.0api\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cir_btn.xml",
+        "source": "E:\\GitHub\\Android-Camera-2.0api\\app\\src\\main\\res\\drawable\\cir_btn.xml"
+    },
+    {
         "merged": "E:\\studio_workspace\\lixCamera\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cir_btn.xml",
         "source": "E:\\studio_workspace\\lixCamera\\app\\src\\main\\res\\drawable\\cir_btn.xml"
     }
