@@ -235,7 +235,12 @@ public class AutoFitTextureView extends TextureView {
         if( null == context) {
             return;
         }
-        
+
+        // if the view is in edit mode, like in developer tools, camera are not supported, so just return
+        if(this.isInEditMode()) {
+            return;
+        }
+
         mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     }

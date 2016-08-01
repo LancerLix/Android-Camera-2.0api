@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:background="@android:color/black"
+        android:background="@android:color/transparent"
         android:text="@string/camera_open_failed"
         android:textColor="@android:color/white"
         android:textSize="12sp" />

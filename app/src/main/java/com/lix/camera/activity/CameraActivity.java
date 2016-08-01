@@ -25,6 +25,8 @@ public class CameraActivity extends Activity {
     private CameraActivityHolder mCameraActivityHolder;
     
     private CameraActivityListener mCameraActivityListener;
+
+    private boolean mPermissionAlreadyChecked = false;
     
     public CameraActivityHolder getHolder() {
         return mCameraActivityHolder;
@@ -33,8 +35,17 @@ public class CameraActivity extends Activity {
     public CameraActivityListener getListener() {
         return mCameraActivityListener;
     }
+
+    private boolean permissionAlreadyChecked() {
+        return mPermissionAlreadyChecked;
+    }
     
     private void checkApplicationPermission() {
+
+        if(permissionAlreadyChecked()) {
+            return;
+        }
+
         int cameraPermission = ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA);
         
@@ -120,6 +131,8 @@ public class CameraActivity extends Activity {
                     + " permissions length:" + permissions.length
                     + " grantResults length:" + grantResults.length);
         }
+
+        mPermissionAlreadyChecked = true;
     
         switch (requestCode) {
             case Constants.PermissionRequestCode.PERMISSIONS_REQUEST_CAMERA: {
