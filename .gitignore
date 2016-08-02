@@ -1,0 +1,26 @@
+# Android
+local.properties
+*.keystore
+*.DS_Store
+proguard-project.txt
+
+# Gradle
+**/.gradle
+**/.settings
+**/build
+
+# gh-pages
+doc/**
+_site/*
+_pages/*
+docs/**/*
+
+# Vim
+*.swp
+*.swo
+
+# Intellij 
+*.ipr
+*.iml
+*.iws
+**/.idea
