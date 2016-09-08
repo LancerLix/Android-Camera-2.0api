@@ -1,13 +1,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
     <com.lix.camera.ui.AutoFitTextureView
         android:id="@+id/texture_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"/>
+
+    <com.lix.camera.ui.top.TopOptionMenu
+        android:id="@+id/top_option_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top" />
     
     <ViewStub
         android:id="@+id/camera_open_failed_tip"
@@ -16,12 +23,14 @@
         android:layout_gravity="center"
         android:layout="@layout/camera_open_failed_tip_text" />
     
-    <Button
+    <ImageButton
         android:id="@+id/btn_take_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
         android:layout_gravity="center_horizontal|bottom"
-        android:text="@string/take_picture" />
+        android:background="@drawable/btn_shutter_circle"
+        android:src="@drawable/btn_shutter_normal" />
 
 </FrameLayout>
 

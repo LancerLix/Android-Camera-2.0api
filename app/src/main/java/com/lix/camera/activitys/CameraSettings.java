@@ -1,4 +1,4 @@
-package com.lix.camera.activity;
+package com.lix.camera.activitys;
 
 import android.graphics.Rect;
 import android.hardware.camera2.CameraCharacteristics;
@@ -6,7 +6,8 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.MeteringRectangle;
 import android.location.Location;
-import android.util.Log;
+
+import com.lix.camera.utils.LogUtils;
 
 public class CameraSettings {
     private final String TAG = CameraSettings.class.getSimpleName();
@@ -60,14 +61,14 @@ public class CameraSettings {
     }
 
     private boolean setSceneMode(CaptureRequest.Builder builder) {
-        Log.d(TAG, "setSceneMode");
-        Log.d(TAG, "builder: " + builder);
+        LogUtils.d(TAG, "setSceneMode");
+        LogUtils.d(TAG, "builder: " + builder);
         
         if( builder.get(CaptureRequest.CONTROL_SCENE_MODE) == null && scene_mode == CameraMetadata.CONTROL_SCENE_MODE_DISABLED ) {
             // can leave off
         }
         else if( builder.get(CaptureRequest.CONTROL_SCENE_MODE) == null || builder.get(CaptureRequest.CONTROL_SCENE_MODE) != scene_mode ) {
-            Log.d(TAG, "setting scene mode: " + scene_mode);
+            LogUtils.d(TAG, "setting scene mode: " + scene_mode);
             
             if( scene_mode == CameraMetadata.CONTROL_SCENE_MODE_DISABLED ) {
                 builder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
@@ -86,7 +87,7 @@ public class CameraSettings {
             // can leave off
         }
         else if( builder.get(CaptureRequest.CONTROL_EFFECT_MODE) == null || builder.get(CaptureRequest.CONTROL_EFFECT_MODE) != color_effect ) {
-            Log.d(TAG, "setting color effect: " + color_effect);
+            LogUtils.d(TAG, "setting color effect: " + color_effect);
             builder.set(CaptureRequest.CONTROL_EFFECT_MODE, color_effect);
             return true;
         }
@@ -98,7 +99,7 @@ public class CameraSettings {
             // can leave off
         }
         else if( builder.get(CaptureRequest.CONTROL_AWB_MODE) == null || builder.get(CaptureRequest.CONTROL_AWB_MODE) != white_balance ) {
-            Log.d(TAG, "setting white balance: " + white_balance);
+            LogUtils.d(TAG, "setting white balance: " + white_balance);
             builder.set(CaptureRequest.CONTROL_AWB_MODE, white_balance);
             return true;
         }
@@ -106,7 +107,7 @@ public class CameraSettings {
     }
 
     private boolean setISO(CaptureRequest.Builder builder) {
-        Log.d(TAG, "setISO: " + has_iso + " : " + iso);
+        LogUtils.d(TAG, "setISO: " + has_iso + " : " + iso);
         if( has_iso ) {
             builder.set(CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_OFF);
             builder.set(CaptureRequest.SENSOR_SENSITIVITY, iso);
@@ -127,7 +128,7 @@ public class CameraSettings {
         if( !has_ae_exposure_compensation )
             return false;
         if( builder.get(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION) == null || ae_exposure_compensation != builder.get(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION) ) {
-            Log.d(TAG, "change exposure to " + ae_exposure_compensation);
+            LogUtils.d(TAG, "change exposure to " + ae_exposure_compensation);
             builder.set(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION, ae_exposure_compensation);
             return true;
         }

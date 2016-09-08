@@ -2,8 +2,6 @@ package com.lix.camera.utils;
 
 public final class Constants {
     
-    public static final boolean DEBUG = true;
-    
     public static final class CameraDeviceMsg {
         public static final int CAMERA_DEVICE_OPENED = 0;
         

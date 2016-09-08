@@ -8,5 +8,6 @@
     <string name="take_picture">Shutter</string>
     
     <string name="camera_open_failed">Camera Opened Failed, Please Check The Permission Of The Camera, Or Maybe Used By Another.</string>
+    <string name="camera_take_picture_failed">Take picture failed, Please check the permission of the external storage where the picture want to save to.</string>
 
 </resources>

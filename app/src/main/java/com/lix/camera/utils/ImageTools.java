@@ -2,6 +2,7 @@
 package com.lix.camera.utils;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -19,6 +20,8 @@ import android.graphics.RectF;
 import android.os.Environment;
 
 public class ImageTools {
+
+    private static final String TAG = ImageTools.class.getSimpleName();
 
     // /////图片处理 begin
     public static Bitmap getCircleBitmap(Bitmap bitmap) {
@@ -140,7 +143,7 @@ public class ImageTools {
     }
     
     @SuppressLint("SimpleDateFormat")
-    public static File getOutputMediaFile() {
+    public static File getOutputMediaFile() throws IOException {
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
@@ -151,7 +154,8 @@ public class ImageTools {
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                return null;
+                LogUtils.e(TAG, "can't create output media files !");
+                throw new IOException();
             }
         }
 

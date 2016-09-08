@@ -12,6 +12,9 @@ import android.widget.FrameLayout;
 
 import com.lix.camera.R;
 
+/**
+ * An base option menu that support pop or hide with specify type.
+ */
 abstract public class BaseOptionMenu extends FrameLayout implements View.OnClickListener {
     
     public interface OnOptionMenuItemClickListener {

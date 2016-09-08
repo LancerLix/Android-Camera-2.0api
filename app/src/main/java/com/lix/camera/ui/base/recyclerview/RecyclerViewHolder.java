@@ -1,9 +1,10 @@
 package com.lix.camera.ui.base.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+
+import com.lix.camera.utils.LogUtils;
 
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     
@@ -27,7 +28,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         
         view = itemView.findViewById(id);
         if(view == null) {
-            Log.e(TAG, "no view that id is : " + id);
+            LogUtils.e(TAG, "no view that id is : " + id);
             return null;
         }
         
