@@ -5,7 +5,7 @@ import com.lix.camera.presenters.IActivityControlPresenter;
 import com.lix.camera.presenters.IActivityPermissionPresenter;
 import com.lix.camera.presenters.impl.ActivityControlPresent;
 import com.lix.camera.presenters.impl.ActivityPermissionPresent;
-import com.lix.camera.presenters.impl.CameraPresenter2;
+import com.lix.camera.presenters.impl.CameraPresenter;
 import com.lix.camera.presenters.ICameraPresenter;
 import com.lix.camera.utils.Constants;
 import com.lix.camera.utils.LogUtils;
@@ -86,7 +86,7 @@ public class CameraActivityListener{
     public CameraActivityListener(@NonNull CameraActivity cameraActivity,
                                   @NonNull CameraActivityHolder cameraActivityHolder) {
 
-        mCameraPresenter = new CameraPresenter2(cameraActivity, new CameraViewProxy(cameraActivityHolder));
+        mCameraPresenter = new CameraPresenter(cameraActivity, new CameraViewProxy(cameraActivityHolder));
         mActivityPermissionPresenter = new ActivityPermissionPresent(cameraActivity);
         mActivityControlPresenter = new ActivityControlPresent(new ActivityViewProxy(cameraActivityHolder));
 
@@ -241,6 +241,7 @@ public class CameraActivityListener{
             openCamera();
 
         } else {
+            setAllowSavePicture(true);
             openCamera();
         }
     }

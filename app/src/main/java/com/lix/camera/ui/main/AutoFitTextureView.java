@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lix.camera.ui;
+package com.lix.camera.ui.main;
 
 import com.lix.camera.utils.LogUtils;
 

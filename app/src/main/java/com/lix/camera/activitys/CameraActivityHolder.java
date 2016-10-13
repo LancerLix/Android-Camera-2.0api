@@ -1,7 +1,7 @@
 package com.lix.camera.activitys;
 
 import com.lix.camera.R;
-import com.lix.camera.ui.AutoFitTextureView;
+import com.lix.camera.ui.main.AutoFitTextureView;
 import com.lix.camera.ui.top.TopOptionMenu;
 
 import android.app.Activity;
@@ -29,7 +29,7 @@ public class CameraActivityHolder {
             mCameraOpenFailedTip = (ViewStub) mCameraActivity.findViewById(R.id.camera_open_failed_tip);
         }
 
-        getTopOptionMenu().prepareContentView(TopOptionMenu.TYPE_NOMAL, true);
+        getTopOptionMenu().prepareContentView(TopOptionMenu.TYPE_NORMAL, true);
     }
 
     public Activity getActivity() {

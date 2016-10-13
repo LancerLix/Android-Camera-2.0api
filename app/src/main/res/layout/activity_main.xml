@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <com.lix.camera.ui.AutoFitTextureView
+    <com.lix.camera.ui.main.AutoFitTextureView
         android:id="@+id/texture_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -30,7 +30,8 @@
         android:scaleType="fitXY"
         android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/btn_shutter_circle"
-        android:src="@drawable/btn_shutter_normal" />
+        android:src="@drawable/btn_shutter_normal"
+        android:contentDescription="@null"/>
 
 </FrameLayout>
 

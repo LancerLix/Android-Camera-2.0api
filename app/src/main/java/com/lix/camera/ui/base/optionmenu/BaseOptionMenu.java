@@ -15,13 +15,7 @@ import com.lix.camera.R;
 /**
  * An base option menu that support pop or hide with specify type.
  */
-abstract public class BaseOptionMenu extends FrameLayout implements View.OnClickListener {
-    
-    public interface OnOptionMenuItemClickListener {
-        void onClick(View v);
-    }
-    
-    private OnOptionMenuItemClickListener mListener;
+abstract public class BaseOptionMenu extends FrameLayout {
     
     private ViewGroup mSettingContentView = null;
     
@@ -31,7 +25,7 @@ abstract public class BaseOptionMenu extends FrameLayout implements View.OnClick
     private LayoutInflater mLayoutInflater;
     
     //control two animation of mutual exclusion
-    private boolean mAleadyShow = false;
+    private boolean mAlreadyShow = false;
     
     //control animation itself of mutual exclusion
     private boolean mIsShowing = false; 
@@ -70,10 +64,6 @@ abstract public class BaseOptionMenu extends FrameLayout implements View.OnClick
         return this;
     }
     
-    public void setOnOptionMenuItemClickListener(OnOptionMenuItemClickListener listener) {
-        mListener = listener;
-    }
-    
     private void initialize(Context context) {
         
         mOptionMenuPopupAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.option_menu_popup);
@@ -88,7 +78,7 @@ abstract public class BaseOptionMenu extends FrameLayout implements View.OnClick
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mAleadyShow = true;
+                mAlreadyShow = true;
                 mIsShowing = false;
             }
 
@@ -107,7 +97,7 @@ abstract public class BaseOptionMenu extends FrameLayout implements View.OnClick
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mAleadyShow = false;
+                mAlreadyShow = false;
                 mIsHiding = false;
                 getContentViewContainer().setVisibility(GONE);
             }
@@ -149,7 +139,7 @@ abstract public class BaseOptionMenu extends FrameLayout implements View.OnClick
             return;
         }
         
-        if(mAleadyShow) {
+        if(mAlreadyShow) {
             hideOptionMenu();
             return;
         }
@@ -165,15 +155,8 @@ abstract public class BaseOptionMenu extends FrameLayout implements View.OnClick
             return;
         }
         
-        if(mOptionMenuDismissAnimation != null && mSettingContentView != null && mAleadyShow && !mIsHiding) {
+        if(mOptionMenuDismissAnimation != null && mSettingContentView != null && mAlreadyShow && !mIsHiding) {
             this.startAnimation(mOptionMenuDismissAnimation);
-        }
-    }
-    
-    @Override
-    public void onClick(View v) {
-        if(null != mListener) {
-            mListener.onClick(v);
         }
     }
     

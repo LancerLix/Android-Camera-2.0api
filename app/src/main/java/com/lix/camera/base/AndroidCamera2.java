@@ -426,7 +426,25 @@ public class AndroidCamera2 extends BaseCamera {
         }
     }
 
+    @Override
+    public void setWhiteBalance(String wbValue) {
 
+    }
+
+    @Override
+    public void setISO(String isoValue) {
+
+    }
+
+    @Override
+    public void setFlashValue(String flashValue) {
+
+    }
+
+    @Override
+    public void setShutterSpeed(int shutterSpeed) {
+
+    }
 
     @Override
     public void takePicture() {

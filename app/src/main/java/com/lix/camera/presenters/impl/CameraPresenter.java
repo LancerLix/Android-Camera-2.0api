@@ -14,32 +14,37 @@ import com.lix.camera.ui.function.ITextureView;
  *
  * Implements Camera presents interface used for camera api 2.0
  */
-public class CameraPresenter2 implements ICameraPresenter {
+public class CameraPresenter implements ICameraPresenter {
 
     private BaseCamera mCamera;
 
-    private ITextureView mTextView;
+    private ITextureView mTextureView;
 
     private boolean mAllowSavePicture;
     private boolean allowSavePicture() {
         return mAllowSavePicture;
     }
 
-    public CameraPresenter2(Context context, ITextureView textureView) {
+    public CameraPresenter(Context context, ITextureView textureView) {
         mCamera = new AndroidCamera2(context);
         mCamera.setCameraStatusListener(new Camera2StatusListener());
 
-        mTextView = textureView;
+        mTextureView = textureView;
     }
 
     private class Camera2StatusListener implements BaseCamera.CameraStatusListener {
 
         @Override
+        public void onCameraFeaturesReach(BaseCamera.CameraFeatures cameraFeatures) {
+
+        }
+
+        @Override
         public void onCameraOpened() {
 
-            if(mTextView.inAvailableState()) {
+            if(mTextureView.inAvailableState()) {
                 // getCameraDisplayTexture() will return null is the text view is not in available state
-                mCamera.setDisplayTexture(mTextView.getCameraDisplayTexture());
+                mCamera.setDisplayTexture(mTextureView.getCameraDisplayTexture());
                 mCamera.setPictureSize(null);
                 // note, this won't start the preview yet, but we create the previewBuilder in order to start setting camera parameters
                 mCamera.startPreview();
@@ -60,7 +65,7 @@ public class CameraPresenter2 implements ICameraPresenter {
 
         @Override
         public void onCameraDisplaySizeChanged(int width, int height) {
-            mTextView.setAspectRatio(width, height);
+            mTextureView.setAspectRatio(width, height);
         }
     }
 
@@ -103,8 +108,8 @@ public class CameraPresenter2 implements ICameraPresenter {
 
     @Override
     public void setAllowUseCamera(boolean allow) {
-        if(!allow && null != mTextView) {
-            mTextView.forbidUseCamera();
+        if(!allow && null != mTextureView) {
+            mTextureView.forbidUseCamera();
         }
     }
 
@@ -118,8 +123,8 @@ public class CameraPresenter2 implements ICameraPresenter {
         if(null != mCamera) {
             if(allowSavePicture()) {
                 mCamera.takePicture();
-            }else if(null != mTextView){
-                mTextView.forbidRecordPhoto();
+            }else if(null != mTextureView){
+                mTextureView.forbidRecordPhoto();
             }
         }
     }
