@@ -29,6 +29,7 @@ import com.lix.camera.base.BaseCamera;
  * Created by lix on 2016/8/8.
  *
  */
+@SuppressWarnings("deprecation")
 public class FlashSettingMenu extends ViewGroup {
 
     private final String TAG = FlashSettingMenu.class.getSimpleName();
@@ -204,10 +205,12 @@ public class FlashSettingMenu extends ViewGroup {
             public void onClick(View v) {
                 toggle();
 
-                setCurrentFlashValue((String)(v.getTag()));
+                String selectFlashValue = (String)(v.getTag());
+
+                setCurrentFlashValue(selectFlashValue);
 
                 if(null != mOnFlashMenuOptionSelectListener) {
-                    mOnFlashMenuOptionSelectListener.onOptionSelected((String)(v.getTag()));
+                    mOnFlashMenuOptionSelectListener.onOptionSelected(selectFlashValue);
                 }
             }
         });

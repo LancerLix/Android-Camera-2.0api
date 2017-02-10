@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <com.lix.camera.ui.main.AutoFitTextureView
+    <com.lix.camera.ui.main.CameraTextureView
         android:id="@+id/texture_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

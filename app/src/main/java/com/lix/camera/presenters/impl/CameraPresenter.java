@@ -1,13 +1,17 @@
 package com.lix.camera.presenters.impl;
 
 import android.content.Context;
-import android.hardware.camera2.CameraCharacteristics;
+import android.support.annotation.NonNull;
 import android.util.Size;
 
-import com.lix.camera.base.AndroidCamera2;
-import com.lix.camera.base.BaseCamera;
+import com.lix.camera.model.ICameraModel;
+import com.lix.camera.model.impl.CameraModel;
 import com.lix.camera.presenters.ICameraPresenter;
-import com.lix.camera.ui.function.ITextureView;
+import com.lix.camera.ui.function.ICameraView;
+
+import java.io.File;
+
+import static com.lix.camera.presenters.ICameraPresenter.CameraId.CAMERA_FACING_BACK;
 
 /**
  * Created by lix on 2016/8/11.
@@ -16,47 +20,43 @@ import com.lix.camera.ui.function.ITextureView;
  */
 public class CameraPresenter implements ICameraPresenter {
 
-    private BaseCamera mCamera;
-
-    private ITextureView mTextureView;
-
-    private boolean mAllowSavePicture;
-    private boolean allowSavePicture() {
-        return mAllowSavePicture;
+    private ICameraModel mCameraModel;
+    @NonNull
+    private ICameraModel getCameraModel() {
+        return mCameraModel;
     }
 
-    public CameraPresenter(Context context, ITextureView textureView) {
-        mCamera = new AndroidCamera2(context);
-        mCamera.setCameraStatusListener(new Camera2StatusListener());
+    private ICameraView mTextureView;
+    private ICameraView getTextureView() {
+        return mTextureView;
+    }
+
+    public CameraPresenter(Context context, ICameraView textureView) {
+        mCameraModel = new CameraModel(context);
+        mCameraModel.setCameraModelCallback(new CameraModelCallback());
 
         mTextureView = textureView;
     }
 
-    private class Camera2StatusListener implements BaseCamera.CameraStatusListener {
-
-        @Override
-        public void onCameraFeaturesReach(BaseCamera.CameraFeatures cameraFeatures) {
-
-        }
+    private class CameraModelCallback implements ICameraModel.CameraModelCallback {
 
         @Override
         public void onCameraOpened() {
-
-            if(mTextureView.inAvailableState()) {
-                // getCameraDisplayTexture() will return null is the text view is not in available state
-                mCamera.setDisplayTexture(mTextureView.getCameraDisplayTexture());
-                mCamera.setPictureSize(null);
+            if(null != getTextureView()) {
+                // getCameraDisplayTexture() will never return null because the text view must be in available state here
+                getCameraModel().setSurfaceTexture(getTextureView().getCameraDisplayTexture());
+                getCameraModel().setPictureSize(null);
                 // note, this won't start the preview yet, but we create the previewBuilder in order to start setting camera parameters
-                mCamera.startPreview();
-            }else {
-                mCamera.closeCamera();
-                mCamera.openCamera(CameraCharacteristics.LENS_FACING_FRONT);
+                getCameraModel().startPreview();
             }
-
         }
 
         @Override
         public void onCameraDisconnected() {
+        }
+
+        @Override
+        public void onCameraClosed() {
         }
 
         @Override
@@ -65,54 +65,87 @@ public class CameraPresenter implements ICameraPresenter {
 
         @Override
         public void onCameraDisplaySizeChanged(int width, int height) {
-            mTextureView.setAspectRatio(width, height);
+            if(null != getTextureView()) {
+                getTextureView().setAspectRatio(width, height);
+            }
+        }
+
+        @Override
+        public void onAutoFocusStart(int envIso) {
+
+        }
+
+        @Override
+        public void onAutoFocusReturn(boolean success, int distance, int expIso) {
+
+        }
+
+        @Override
+        public void onCameraShutter() {
+
+        }
+
+        @Override
+        public void onCameraRawPicDataSaved(byte[] data, File savedFile) {
+
+        }
+
+        @Override
+        public void onCameraJpegPicDataSaved(byte[] data, File savedFile) {
+            if(null != getTextureView()) {
+                getTextureView().dealPictureResult(data, savedFile);
+            }
         }
     }
 
     @Override
-    public void openCamera(int cameraId) {
-        if(null != mCamera) {
-            mCamera.startCameraBackgroundThread();
-            mCamera.openCamera(cameraId);
+    public void openCamera(CameraId cameraId) {
+
+        if(null == getTextureView() || !getTextureView().inAvailableState()) {
+            return;
+        }
+
+        switch(cameraId) {
+            case CAMERA_FACING_BACK:
+                getCameraModel().openCamera(ICameraModel.CameraId.CAMERA_FACING_BACK);
+                break;
+            case CAMERA_FACING_FRONT:
+                getCameraModel().openCamera(ICameraModel.CameraId.CAMERA_FACING_FRONT);
+                break;
         }
     }
 
     @Override
     public void closeCamera() {
-        if(null != mCamera) {
-            mCamera.closeCamera();
-            mCamera.stopCameraBackgroundThread();
-        }
+        getCameraModel().closeCamera();
     }
 
     @Override
     public void startPreview() {
-        if(null != mCamera) {
-            mCamera.startPreview();
-        }
+        getCameraModel().startPreview();
     }
 
     @Override
     public void stopPreview() {
-        if(null != mCamera) {
-            mCamera.stopPreview();
-        }
+        getCameraModel().stopPreview();
     }
 
     @Override
     public void setPictureSize(Size pictureSize) {
-        if(null != mCamera) {
-            mCamera.setPictureSize(pictureSize);
-        }
+        getCameraModel().setPictureSize(pictureSize);
     }
 
     @Override
     public void setAllowUseCamera(boolean allow) {
-        if(!allow && null != mTextureView) {
-            mTextureView.forbidUseCamera();
+        if(!allow && null != getTextureView()) {
+            getTextureView().forbidUseCamera();
         }
     }
 
+    private boolean mAllowSavePicture;
+    private boolean allowSavePicture() {
+        return mAllowSavePicture;
+    }
     @Override
     public void setAllowSavePicture(boolean allow) {
         mAllowSavePicture = allow;
@@ -120,12 +153,25 @@ public class CameraPresenter implements ICameraPresenter {
 
     @Override
     public void takePicture() {
-        if(null != mCamera) {
-            if(allowSavePicture()) {
-                mCamera.takePicture();
-            }else if(null != mTextureView){
-                mTextureView.forbidRecordPhoto();
-            }
+        if(allowSavePicture()) {
+            getCameraModel().takePicture();
+        }else if(null != getTextureView()){
+            getTextureView().forbidRecordPhoto();
         }
+    }
+
+    @Override
+    public void updateCameraViewSize(Size viewSize) {
+        getCameraModel().updateCameraViewSize(viewSize);
+    }
+
+    @Override
+    public void updateCameraViewOrientation(int orientation) {
+        getCameraModel().updateCameraViewOrientation(orientation);
+    }
+
+    @Override
+    public void setFlashValue(String flashValue) {
+        getCameraModel().setFlashValue(flashValue);
     }
 }

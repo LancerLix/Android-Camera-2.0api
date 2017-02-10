@@ -20,7 +20,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     
     public void setOrientation(int orientation) {
         if (orientation != LinearLayoutManager.HORIZONTAL && orientation != LinearLayoutManager.VERTICAL) {
-            throw new IllegalArgumentException("invalid orientation");
+            throw new IllegalArgumentException("invalid mOrientation");
         }
         mOrientation = orientation;
     }

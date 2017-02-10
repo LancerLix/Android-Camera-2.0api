@@ -22,4 +22,10 @@ public class LogUtils {
             Log.e(tag, declare);
         }
     }
+
+    public static void w(String tag, String declare) {
+        if(DEBUG) {
+            Log.w(tag, declare);
+        }
+    }
 }

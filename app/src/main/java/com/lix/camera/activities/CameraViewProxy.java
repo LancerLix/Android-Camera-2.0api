@@ -1,18 +1,21 @@
-package com.lix.camera.activitys;
+package com.lix.camera.activities;
 
 import android.graphics.SurfaceTexture;
 import android.view.View;
 import android.widget.Toast;
 
 import com.lix.camera.R;
-import com.lix.camera.ui.function.ITextureView;
+import com.lix.camera.ui.function.ICameraView;
+import com.lix.camera.utils.MediaUtils;
+
+import java.io.File;
 
 /**
  * Created by lix on 2016/9/1.
  *
  * All camera view control and status gaining.
  */
-public class CameraViewProxy implements ITextureView {
+public class CameraViewProxy implements ICameraView {
 
     private CameraActivityHolder mCameraActivityHolder;
 
@@ -68,6 +71,15 @@ public class CameraViewProxy implements ITextureView {
         Toast.makeText(getHolder().getActivity(), R.string.camera_take_picture_failed, Toast.LENGTH_SHORT).show();
     }
 
-//==================================================================================================================
+    @Override
+    public void dealPictureResult(final byte[] picData, final File resultFile) {
+        if(null == getHolder() || null == getHolder().getActivity()) {
+            return;
+        }
+
+        MediaUtils.insertImageToMediaStore(resultFile, resultFile.getAbsolutePath(), getHolder().getActivity());
+    }
+
+    //==================================================================================================================
 
 }

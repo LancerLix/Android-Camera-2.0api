@@ -9,7 +9,12 @@ import android.util.Size;
  */
 public interface ICameraPresenter {
 
-    void openCamera(int cameraId);
+    enum CameraId {
+        CAMERA_FACING_BACK,
+        CAMERA_FACING_FRONT
+    }
+
+    void openCamera(CameraId cameraId);
     void closeCamera();
 
     void startPreview();
@@ -21,5 +26,9 @@ public interface ICameraPresenter {
     void setAllowSavePicture(boolean allow);
 
     void takePicture();
+
+    void updateCameraViewSize(Size viewSize);
+    void updateCameraViewOrientation(int orientation);
+    void setFlashValue(String flashValue);
 
 }

@@ -28,7 +28,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         
         view = itemView.findViewById(id);
         if(view == null) {
-            LogUtils.e(TAG, "no view that id is : " + id);
+            LogUtils.e(TAG, "no view that mId is : " + id);
             return null;
         }
         

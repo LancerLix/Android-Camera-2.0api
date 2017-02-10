@@ -15,7 +15,7 @@
 -->
 <resources>
     <!-- vendor and product ID -->
-    <usb-device vendor-id="5325" product-id="4636" />
-   	<usb-device vendor-id="11132" product-id="4636" />
-<!--    	<usb-device vendor-id="3034" product-id="10296" /> -->
+    <usb-device vendor-mId="5325" product-mId="4636" />
+   	<usb-device vendor-mId="11132" product-mId="4636" />
+<!--    	<usb-device vendor-mId="3034" product-mId="10296" /> -->
 </resources>

@@ -1,5 +1,5 @@
 
-package com.lix.camera.activitys;
+package com.lix.camera.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import com.lix.camera.R;
 import com.lix.camera.utils.LogUtils;
+import com.lix.camera.utils.PicSizeUtils;
+import com.lix.camera.utils.PreferenceUtils;
+import com.lix.camera.utils.SoundUtils;
 
 public class CameraActivity extends Activity {
 
@@ -30,6 +33,10 @@ public class CameraActivity extends Activity {
         WindowManager.LayoutParams layout = getWindow().getAttributes();
         layout.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL;
         getWindow().setAttributes(layout);
+
+        PicSizeUtils.initScreenSizeAndDensity(this);
+        SoundUtils.getSingleton().preload(this);
+        PreferenceUtils.initPreferences(this);
 
         mCameraActivityListener = new CameraActivityListener(this, new CameraActivityHolder(this));
 

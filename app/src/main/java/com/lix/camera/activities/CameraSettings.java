@@ -1,4 +1,4 @@
-package com.lix.camera.activitys;
+package com.lix.camera.activities;
 
 import android.graphics.Rect;
 import android.hardware.camera2.CameraCharacteristics;
@@ -53,7 +53,7 @@ public class CameraSettings {
         if( is_still ) {
             if( location != null ) {
                 //builder.set(CaptureRequest.JPEG_GPS_LOCATION, location);
-                // settings location messes up date on Nexus 7?!
+                // settings location messes up mDate on Nexus 7?!
             }
             builder.set(CaptureRequest.JPEG_ORIENTATION, rotation);
             builder.set(CaptureRequest.JPEG_QUALITY, jpeg_quality);

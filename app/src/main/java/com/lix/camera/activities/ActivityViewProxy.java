@@ -1,4 +1,4 @@
-package com.lix.camera.activitys;
+package com.lix.camera.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

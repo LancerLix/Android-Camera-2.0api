@@ -19,7 +19,7 @@
         android:theme="@style/AppTheme" 
         android:largeHeap="true">
         <activity
-            android:name="com.lix.camera.activitys.CameraActivity"
+            android:name="com.lix.camera.activities.CameraActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" 
             android:launchMode="singleTask">

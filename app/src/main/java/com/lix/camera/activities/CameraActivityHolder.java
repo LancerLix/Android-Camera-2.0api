@@ -1,7 +1,7 @@
-package com.lix.camera.activitys;
+package com.lix.camera.activities;
 
 import com.lix.camera.R;
-import com.lix.camera.ui.main.AutoFitTextureView;
+import com.lix.camera.ui.main.CameraTextureView;
 import com.lix.camera.ui.top.TopOptionMenu;
 
 import android.app.Activity;
@@ -12,7 +12,7 @@ public class CameraActivityHolder {
     
     private CameraActivity mCameraActivity;
     
-    private AutoFitTextureView mTextureView;
+    private CameraTextureView mTextureView;
 
     private TopOptionMenu mTopOptionMenu;
 
@@ -24,7 +24,7 @@ public class CameraActivityHolder {
         
         if(null != mCameraActivity) {
             mTopOptionMenu = (TopOptionMenu) mCameraActivity.findViewById(R.id.top_option_menu);
-            mTextureView = (AutoFitTextureView) mCameraActivity.findViewById(R.id.texture_view);
+            mTextureView = (CameraTextureView) mCameraActivity.findViewById(R.id.texture_view);
             mShutterButton = (ImageButton) mCameraActivity.findViewById(R.id.btn_take_picture);
             mCameraOpenFailedTip = (ViewStub) mCameraActivity.findViewById(R.id.camera_open_failed_tip);
         }
@@ -36,7 +36,7 @@ public class CameraActivityHolder {
         return mCameraActivity;
     }
 
-    public AutoFitTextureView getTextureView() {
+    public CameraTextureView getTextureView() {
         return mTextureView;
     }
     
