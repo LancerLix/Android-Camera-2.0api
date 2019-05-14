@@ -357,8 +357,6 @@ public class AndroidCamera2 extends BaseCamera {
 
     private RequestState mRequestState = RequestState.STATE_NORMAL;
 
-    private WindowManager mWindowManager;
-
     private CameraManager mCameraManager;
 
     private CameraDevice mCameraDevice = null;
@@ -382,7 +380,6 @@ public class AndroidCamera2 extends BaseCamera {
 
     public AndroidCamera2(Context context) {
         mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
-        mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     }
 
     private CameraDevice.StateCallback mDeviceStateCallback = new CameraDevice.StateCallback() {
@@ -1300,6 +1297,8 @@ public class AndroidCamera2 extends BaseCamera {
             return;
         }
 
+
+
         if(null == pictureSize) {
             pictureSize = Collections.max(
                     Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
@@ -1314,7 +1313,7 @@ public class AndroidCamera2 extends BaseCamera {
                 ImageFormat.JPEG, 2);
         mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, getCameraBackgroundHandler());
 
-        mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class), pictureSize);
+        mPreviewSize = PicSizeUtils.getOptimalPreviewSize(Arrays.asList(map.getOutputSizes(SurfaceTexture.class)), pictureSize);
         setPreviewSize(surfaceTexture, mPreviewSize);
 
         mCameraSurface = new Surface(surfaceTexture);
@@ -1334,36 +1333,6 @@ public class AndroidCamera2 extends BaseCamera {
         }
 
         target.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
-    }
-
-    private Size chooseOptimalSize(Size[] choices, Size aspectRatio) {
-        // Collect the supported resolutions that are at least as big as the preview Surface
-        List<Size> bigEnough = new ArrayList<>();
-
-        int aspectRatioWidth = aspectRatio.getWidth();
-        int aspectRatioHeight = aspectRatio.getHeight();
-
-        Point screenSize = new Point();
-
-        mWindowManager.getDefaultDisplay().getSize(screenSize);
-
-        int minSelectWidth = screenSize.x;
-        int minSelectHeight = screenSize.y;
-
-        for (Size option : choices) {
-            if (option.getHeight() == option.getWidth() * aspectRatioHeight / aspectRatioWidth &&
-                    option.getWidth() >= minSelectWidth && option.getHeight() >= minSelectHeight) {
-                bigEnough.add(option);
-            }
-        }
-
-        // Pick the smallest of those, assuming we found any
-        if (bigEnough.size() > 0) {
-            return Collections.min(bigEnough, new SizeComparator());
-        } else {
-            LogUtils.e(TAG, "Couldn't find any suitable preview size");
-            return choices[0];
-        }
     }
 
     private class SizeComparator implements Comparator<Size> {
@@ -1569,6 +1538,11 @@ public class AndroidCamera2 extends BaseCamera {
 
         stopPreview(); // need to stop preview before capture (as done in Camera2Basic; otherwise we get bugs such as flash remaining on after taking a photo with flash)
         setCaptureRequest(getStillCaptureBuilder().build());
+
+        // call onCameraShutter here as soon as possible, otherwise maybe too slow to follow the take picture
+        if(null != getCameraStatusListener()) {
+            getCameraStatusListener().onCameraShutter();
+        }
 
     }
 

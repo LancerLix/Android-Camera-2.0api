@@ -21,17 +21,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout="@layout/camera_open_failed_tip_text" />
+        android:layout="@layout/tip_camera_open_failed" />
     
-    <ImageButton
-        android:id="@+id/btn_take_picture"
+    <include
+        layout="@layout/activity_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
+
+    <com.lix.camera.ui.ArcBitmapView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:scaleType="fitXY"
-        android:layout_gravity="center_horizontal|bottom"
-        android:background="@drawable/btn_shutter_circle"
-        android:src="@drawable/btn_shutter_normal"
-        android:contentDescription="@null"/>
+        android:layout_gravity="center"/>
 
 </FrameLayout>
 

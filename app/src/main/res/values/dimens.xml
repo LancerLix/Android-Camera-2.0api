@@ -7,4 +7,7 @@
     <dimen name="flash_menu_button_spacing">16dp</dimen>
     <dimen name="top_menu_button_size">40dp</dimen>
 
+    <dimen name="activity_bottom_button_size">40dp</dimen>
+    <dimen name="shutter_button_size">60dp</dimen>
+
 </resources>

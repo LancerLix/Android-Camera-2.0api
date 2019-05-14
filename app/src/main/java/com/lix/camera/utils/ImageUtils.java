@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,6 +23,7 @@ import android.graphics.Paint.Align;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.provider.MediaStore;
+import android.util.TypedValue;
 
 import com.lix.camera.utils.pq.ExposureCorrect;
 
@@ -183,6 +185,14 @@ public class ImageUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static Bitmap decodeResource(Resources resources, int id) {
+        TypedValue value = new TypedValue();
+        resources.openRawResource(id, value);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inTargetDensity = value.density;
+        return BitmapFactory.decodeResource(resources, id, opts);
     }
     
     //图片压缩

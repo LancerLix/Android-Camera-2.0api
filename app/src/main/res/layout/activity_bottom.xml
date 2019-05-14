@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.lix.camera.ui.bottom.GalleryButton
+        android:id="@+id/btn_gallery"
+        android:layout_width="@dimen/activity_bottom_button_size"
+        android:layout_height="@dimen/activity_bottom_button_size"
+        android:layout_marginStart="10dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="start|center_vertical"
+        android:contentDescription="@null" />
+
+    <ImageButton
+        android:id="@+id/btn_take_picture"
+        android:layout_width="@dimen/shutter_button_size"
+        android:layout_height="@dimen/shutter_button_size"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_shutter_circle_dr"
+        android:src="@drawable/btn_shutter_normal_dr"
+        android:contentDescription="@null"/>
+
+    <ImageButton
+        android:id="@+id/btn_filter_control"
+        android:layout_width="@dimen/activity_bottom_button_size"
+        android:layout_height="@dimen/activity_bottom_button_size"
+        android:layout_marginEnd="10dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="end|center_vertical"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_btn_menu"
+        android:contentDescription="@null" />
+
+</FrameLayout>

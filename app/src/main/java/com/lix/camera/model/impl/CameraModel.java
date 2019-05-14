@@ -179,7 +179,7 @@ public class CameraModel implements ICameraModel {
 
         @Override
         public void onCameraShutter() {
-
+            SoundUtils.getSingleton().play(SoundUtils.SOUND_SHUTTER);
         }
 
         @Override

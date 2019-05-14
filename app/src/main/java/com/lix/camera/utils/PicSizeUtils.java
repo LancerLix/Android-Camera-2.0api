@@ -372,16 +372,16 @@ public class PicSizeUtils {
      }
      
     public static Size getOptimalPreviewSize(List<Size> sizes,
-            Size targetSize, int newWidth, int newHeight) {
+            Size targetSize) {
         if (sizes == null) {
             return null;
         }
         Size optimalSize = null;
         double minDiff = Double.MAX_VALUE;
-        int targetHeight = Math.min(newWidth, newHeight);
 
+        int targetHeight = Math.min(sScreenSize.x, sScreenSize.y);
         if (targetHeight <= 0) {
-            targetHeight = newHeight;
+            targetHeight = sScreenSize.y;
         }
 
         final double ASPECT_TOLERANCE = 0.05;
